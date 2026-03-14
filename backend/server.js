@@ -19,9 +19,22 @@ supabase.from('users').select('count').limit(1)
     console.error("💡 Make sure 'users' table exists in Supabase");
   });
 
-// CORS configuration
+// CORS - allow localhost (dev) and production URLs (Vercel, Render)
+const allowedOrigins = [
+  'http://localhost:5173', 'http://localhost:3000', 'http://localhost:5174',
+  'https://inventory-system-sample-jzcf.vercel.app',
+  'https://invertory-system-sample.onrender.com',
+  /^https:\/\/inventory-system-sample[^.]*\.vercel\.app$/,
+  /^https:\/\/invertory-system-sample[^.]*\.vercel\.app$/
+];
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:5174'],
+  origin: (origin, cb) => {
+    if (!origin) return cb(null, true);
+    const ok = allowedOrigins.some(o =>
+      typeof o === 'string' ? o === origin : o.test(origin)
+    );
+    cb(null, ok ? origin : false);
+  },
   credentials: true
 }));
 app.use(express.json());

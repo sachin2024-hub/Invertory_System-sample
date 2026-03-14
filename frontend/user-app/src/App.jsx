@@ -3,8 +3,7 @@ import LandingPage from './components/LandingPage.jsx'
 import LoginSidePanel from './components/LoginSidePanel.jsx'
 import AdminDashboard from './components/admin/AdminDashboard.jsx'
 import CashierDashboard from './components/cashier/CashierDashboard.jsx'
-
-const API_URL = 'http://localhost:5000';
+import { API_URL } from './utils/constants.js'
 
 export default function App() {
   const [user, setUser] = useState(null);

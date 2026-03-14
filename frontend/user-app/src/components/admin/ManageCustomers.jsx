@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import '../../styles/admin/ManageCustomers.css'
 
-const API_URL = 'http://localhost:5000';
+import { API_URL } from '../../utils/constants.js'
 
 export default function ManageCustomers() {
   const [customers, setCustomers] = useState([]);

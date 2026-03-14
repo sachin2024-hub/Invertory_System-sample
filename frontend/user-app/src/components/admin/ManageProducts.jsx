@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import '../../styles/admin/ManageProducts.css'
-
-const API_URL = 'http://localhost:5000';
+import { API_URL } from '../../utils/constants.js'
 
 export default function ManageProducts() {
   const [products, setProducts] = useState([]);

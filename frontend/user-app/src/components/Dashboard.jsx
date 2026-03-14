@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import '../styles/Dashboard.css'
 
-const API_URL = 'http://localhost:5000';
+import { API_URL } from '../utils/constants.js'
 
 export default function Dashboard({ user, onLogout }) {
   const [users, setUsers] = useState([]);

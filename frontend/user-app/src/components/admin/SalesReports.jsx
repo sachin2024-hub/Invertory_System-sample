@@ -54,7 +54,7 @@ export default function SalesReports() {
               className={period === p ? 'btn-primary' : 'btn-secondary'}
               onClick={() => setPeriod(p)}
             >
-              {period === 'daily' ? 'Daily' : period === 'weekly' ? 'Weekly' : 'Monthly'} Report
+              {p === 'daily' ? 'Daily' : p === 'weekly' ? 'Weekly' : 'Monthly'} Report
             </button>
           ))}
         </div>

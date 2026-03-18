@@ -360,6 +360,69 @@ app.post("/api/products", async (req, res) => {
   }
 });
 
+// Update existing product
+app.put("/api/products/:id", async (req, res) => {
+  const { id } = req.params;
+  const { name, barcode, category_id, description, price, cost, stock_quantity, reorder_point, unit } = req.body;
+
+  if (!name || !price || stock_quantity === undefined) {
+    return res.status(400).json({ ok: false, message: "Name, price, and stock quantity are required" });
+  }
+
+  try {
+    const productData = {
+      name,
+      barcode: barcode || null,
+      category_id: category_id || null,
+      description: description || null,
+      price: parseFloat(price),
+      cost: cost ? parseFloat(cost) : null,
+      stock_quantity: parseInt(stock_quantity),
+      reorder_point: reorder_point ? parseInt(reorder_point) : 10,
+      unit: unit || 'piece'
+    };
+
+    const { data, error } = await supabase
+      .from('products')
+      .update(productData)
+      .eq('id', id)
+      .select('*')
+      .single();
+
+    if (error) {
+      console.error("Error updating product:", error);
+      return res.status(500).json({ ok: false, message: error.message || 'Failed to update product' });
+    }
+
+    return res.status(200).json({ ok: true, product: data });
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).json({ ok: false, message: "Server error" });
+  }
+});
+
+// Delete product
+app.delete("/api/products/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const { error } = await supabase
+      .from('products')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      console.error("Error deleting product:", error);
+      return res.status(500).json({ ok: false, message: error.message || 'Failed to delete product' });
+    }
+
+    return res.status(200).json({ ok: true, message: "Product deleted successfully" });
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).json({ ok: false, message: "Server error" });
+  }
+});
+
 // ============================================
 // CUSTOMERS API ENDPOINTS
 // ============================================

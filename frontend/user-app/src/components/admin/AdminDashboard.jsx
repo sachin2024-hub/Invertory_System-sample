@@ -5,12 +5,16 @@ import ManageCustomers from './ManageCustomers.jsx'
 import ManageUsers from './ManageUsers.jsx'
 import InventoryMonitoring from './InventoryMonitoring.jsx'
 import SalesReports from './SalesReports.jsx'
+import AdminOverview from './AdminOverview.jsx'
+import AdminSettings from './AdminSettings.jsx'
 
 export default function AdminDashboard({ user, onLogout }) {
-  const [activeMenu, setActiveMenu] = useState('products');
+  const [activeMenu, setActiveMenu] = useState('dashboard');
   const [collapsed, setCollapsed] = useState(false);
 
   const menuItems = [
+    { id: 'dashboard', label: 'Dashboard', icon: '📊' },
+    { id: 'settings', label: 'Settings', icon: '⚙️' },
     { id: 'products', label: 'Manage Products', icon: '📦' },
     { id: 'customers', label: 'Manage Customers', icon: '👥' },
     { id: 'users', label: 'Manage Users', icon: '👤' },
@@ -20,6 +24,10 @@ export default function AdminDashboard({ user, onLogout }) {
 
   const renderContent = () => {
     switch (activeMenu) {
+      case 'dashboard':
+        return <AdminOverview user={user} onNavigate={setActiveMenu} />;
+      case 'settings':
+        return <AdminSettings user={user} />;
       case 'products':
         return <ManageProducts />;
       case 'customers':

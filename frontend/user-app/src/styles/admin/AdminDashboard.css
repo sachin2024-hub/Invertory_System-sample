@@ -4,6 +4,8 @@
   display: flex;
   min-height: 100vh;
   background: #f5f7fa;
+  width: 100%;
+  overflow-x: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
@@ -182,6 +184,8 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .page-title {
@@ -200,6 +204,7 @@
   flex: 1;
   padding: 32px;
   overflow-y: auto;
+  min-width: 0;
 }
 
 /* Sidebar toggle button pinned on edge */
@@ -333,6 +338,10 @@
   text-align: center;
   color: #6b7280;
   font-size: 14px;
+}
+
+.data-table {
+  min-width: 720px;
 }
 
 /* Overview */
@@ -499,23 +508,61 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .admin-sidebar {
-    width: 100%;
-    position: relative;
-    height: auto;
+    width: min(300px, 84vw);
+    z-index: 1100;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.22);
   }
 
   .admin-main-content {
     margin-left: 0;
+    width: 100%;
   }
 
+  .admin-dashboard-container:not(.collapsed) .admin-sidebar-toggle {
+    left: min(300px, 84vw);
+  }
+
+  .admin-dashboard-container.collapsed .admin-sidebar {
+    transform: translateX(-100%);
+  }
+}
+
+@media (max-width: 768px) {
   .content-header {
-    padding: 16px;
+    padding: 14px 16px;
   }
 
   .content-body {
     padding: 16px;
+  }
+
+  .page-title {
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  .header-actions {
+    width: 100%;
+  }
+
+  .welcome-text {
+    display: block;
+  }
+
+  .manage-section {
+    padding: 16px;
+  }
+
+  .section-header h3 {
+    font-size: 18px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    justify-content: center;
   }
 
   .overview-stats-grid {
@@ -528,6 +575,19 @@
 
   .settings-grid {
     grid-template-columns: 1fr;
+  }
+
+  .admin-sidebar-toggle {
+    top: auto;
+    bottom: 16px;
+    transform: none;
+    border-radius: 999px;
+    padding: 10px 12px;
+  }
+
+  .admin-sidebar-toggle.collapsed {
+    left: 12px;
+    border-radius: 999px;
   }
 }
 

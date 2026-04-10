@@ -246,11 +246,29 @@
     max-width: 100%;
   }
 
+  .login-panel-header {
+    padding: 16px 16px 12px;
+  }
+
+  .login-panel-body {
+    padding: 16px;
+  }
+
   .landing-logo {
     font-size: 32px;
   }
 
   .landing-tagline {
     font-size: 14px;
+  }
+
+  .landing-description {
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .landing-login-btn {
+    width: 100%;
+    padding: 14px 20px;
   }
 }
